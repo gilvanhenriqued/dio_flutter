@@ -28,17 +28,18 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   var _name = 'user-name';
   var _email = 'user-email';
-  ImageProvider _avatar = NetworkImage("https://cdn.pixabay.com/photo/2016/11/18/23/38/child-1837375__340.png");
+  ImageProvider _avatar = NetworkImage(
+      "https://cdn.pixabay.com/photo/2016/11/18/23/38/child-1837375__340.png");
   TextEditingController _job = TextEditingController();
-  
+
   var _count = 1;
-  var _result = '';
+  var _result = ' ';
 
   final Dio _dio = new Dio();
   String baseUrl = "https://reqres.in/api";
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
   }
 
@@ -49,14 +50,15 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text('DIO Flutter'),
       ),
       body: Center(
-        child: Form(
+        child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Container(
                 height: 100,
                 width: 100,
-                margin: EdgeInsets.fromLTRB(0,0,0,20),
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
                 child: CircleAvatar(
                   backgroundImage: _avatar,
                 ),
@@ -70,9 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Text(
                 _email,
-                style: TextStyle(
-                  fontSize: 15
-                ),
+                style: TextStyle(fontSize: 15),
               ),
               Container(
                 width: 200,
@@ -82,10 +82,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   decoration: InputDecoration(
                     hintText: 'Digit the job',
                   ),
+                  controller: _job,
                 ),
               ),
               Container(
-                margin: EdgeInsets.fromLTRB(0,0,0,30),
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 30),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
@@ -103,7 +104,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               Text(
-                '_result',
+                'Response save successful!',
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 20,  
+                ),
+              ),
+              Text(
+                _result,
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   fontStyle: FontStyle.italic,
                 ),
@@ -115,10 +124,10 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void getProfile() async{
+  void getProfile() async {
     Response res = await _dio.get("$baseUrl/users/$_count");
     var profile = res.data["data"];
-    print(_name);  
+    print(_name);
 
     setState(() {
       _name = profile['first_name'] + ' ' + profile['last_name'];
@@ -126,28 +135,25 @@ class _MyHomePageState extends State<MyHomePage> {
       _avatar = NetworkImage(profile['avatar']);
     });
 
-    print(_name);  
+    print(_name);
   }
 
   void submitProfile() async {
-    Response res = await _dio.post(
-      "users",
-      data: {
-        "name": _name,
-        "job": _job.text
-      }
-    );
+    Response res = await _dio.post("$baseUrl/users", data: {
+      "name": _name,
+      "job": _job.text,
+    });
 
-    print(res.data.toString());  
+    print(res.data.toString());
 
     setState(() {
       _name = "user-name";
       _email = 'user-email';
-      _avatar = NetworkImage("https://cdn.pixabay.com/photo/2016/11/18/23/38/child-1837375__340.png");
+      _avatar = NetworkImage(
+          "https://cdn.pixabay.com/photo/2016/11/18/23/38/child-1837375__340.png");
       _job.text = "";
       _result = res.data.toString();
-      _count ++;
+      _count++;
     });
   }
-
 }
