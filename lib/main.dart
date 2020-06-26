@@ -26,27 +26,20 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String _name;
-  String _email;
+  var _name = 'username';
+  var _email = 'useremail';
   ImageProvider _avatar = NetworkImage("https://via.placeholder.com/100");
   TextEditingController _job = TextEditingController();
   
-  int _count;
+  var _count = 1;
+  var _result = '';
 
-  Dio _dio;
-
-  String _response;
+  final Dio _dio = new Dio();
+  String baseUrl = "https://reqres.in/api";
 
   @override
   void initState(){
     super.initState();
-
-    BaseOptions options = new BaseOptions(
-      baseUrl: 'https://reqres.in/api',
-      connectTimeout: 5000
-    );
-
-    _dio = new Dio(options);
   }
 
   @override
@@ -99,18 +92,18 @@ class _MyHomePageState extends State<MyHomePage> {
                     RaisedButton(
                       color: Colors.blue,
                       child: Text('Get Profile'),
-                      onPressed: getProfile(),
+                      onPressed: () { getProfile(); },
                     ),
                     RaisedButton(
                       color: Colors.blue,
                       child: Text('Save Profile'),
-                      onPressed: saveProfile(),
+                      onPressed: () { saveProfile(); } ,
                     ),
                   ],
                 ),
               ),
               Text(
-                'resposta',
+                '_result',
                 style: TextStyle(
                   fontStyle: FontStyle.italic,
                 ),
@@ -123,11 +116,31 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void getProfile() async{
+    Response res = await _dio.get("$baseUrl/users/$_count");
+    var profile = res.data["data"];
+    print(_name);  
+
+    setState(() {
+      _name = profile['first_name'] + ' ' + profile['last_name'];
+      _email = profile['email'];
+      _avatar = NetworkImage(profile['avatar']);
+    });
+
+    print(_name);  
 
   }
 
   void saveProfile() async {
+    Response res = await _dio.post(
+      "users",
+      data: {
+        "name": _name,
+        "job": _job.text
+      }
+    );
 
+    print(res.data.toString());  
+  
   }
 
 }
