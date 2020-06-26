@@ -26,9 +26,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var _name = 'username';
-  var _email = 'useremail';
-  ImageProvider _avatar = NetworkImage("https://via.placeholder.com/100");
+  var _name = 'user-name';
+  var _email = 'user-email';
+  ImageProvider _avatar = NetworkImage("https://cdn.pixabay.com/photo/2016/11/18/23/38/child-1837375__340.png");
   TextEditingController _job = TextEditingController();
   
   var _count = 1;
@@ -92,12 +92,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     RaisedButton(
                       color: Colors.blue,
                       child: Text('Get Profile'),
-                      onPressed: () { getProfile(); },
+                      onPressed: () => getProfile(),
                     ),
                     RaisedButton(
                       color: Colors.blue,
                       child: Text('Save Profile'),
-                      onPressed: () { saveProfile(); } ,
+                      onPressed: () => submitProfile(),
                     ),
                   ],
                 ),
@@ -127,10 +127,9 @@ class _MyHomePageState extends State<MyHomePage> {
     });
 
     print(_name);  
-
   }
 
-  void saveProfile() async {
+  void submitProfile() async {
     Response res = await _dio.post(
       "users",
       data: {
@@ -140,7 +139,15 @@ class _MyHomePageState extends State<MyHomePage> {
     );
 
     print(res.data.toString());  
-  
+
+    setState(() {
+      _name = "user-name";
+      _email = 'user-email';
+      _avatar = NetworkImage("https://cdn.pixabay.com/photo/2016/11/18/23/38/child-1837375__340.png");
+      _job.text = "";
+      _result = res.data.toString();
+      _count ++;
+    });
   }
 
 }
