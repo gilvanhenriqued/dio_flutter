@@ -65,18 +65,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 width: 100,
                 margin: EdgeInsets.fromLTRB(0,0,0,20),
                 child: CircleAvatar(
-                  backgroundImage: null,
+                  backgroundImage: _avatar,
                 ),
               ),
               Text(
-                'Gilvan Henrique',
+                _name,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 25,
                 ),
               ),
               Text(
-                'gilvanhenrique.dev@gmail.com',
+                _email,
                 style: TextStyle(
                   fontSize: 15
                 ),
@@ -87,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: TextField(
                   textAlign: TextAlign.center,
                   decoration: InputDecoration(
-                    hintText: 'Digit the job'
+                    hintText: 'Digit the job',
                   ),
                 ),
               ),
@@ -99,12 +99,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     RaisedButton(
                       color: Colors.blue,
                       child: Text('Get Profile'),
-                      onPressed: () {  },
+                      onPressed: getProfile(),
                     ),
                     RaisedButton(
                       color: Colors.blue,
                       child: Text('Save Profile'),
-                      onPressed: () {  },
+                      onPressed: saveProfile(),
                     ),
                   ],
                 ),
@@ -121,4 +121,13 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+
+  void getProfile() async{
+
+  }
+
+  void saveProfile() async {
+
+  }
+
 }
