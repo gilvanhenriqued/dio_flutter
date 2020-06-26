@@ -34,6 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   var _count = 1;
   var _result = ' ';
+  var _success = ' ';
 
   final Dio _dio = new Dio();
   String baseUrl = "https://reqres.in/api";
@@ -104,7 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               Text(
-                'Response save successful!',
+                _success,
                 style: TextStyle(
                   color: Colors.red,
                   fontSize: 20,  
@@ -153,6 +154,7 @@ class _MyHomePageState extends State<MyHomePage> {
           "https://cdn.pixabay.com/photo/2016/11/18/23/38/child-1837375__340.png");
       _job.text = "";
       _result = res.data.toString();
+      _success = "Response save successful";
       _count++;
     });
   }
