@@ -33,14 +33,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,6 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Container(
                 height: 100,
                 width: 100,
+                margin: EdgeInsets.fromLTRB(0,0,0,20),
                 child: CircleAvatar(
                   backgroundImage: null,
                 ),
@@ -74,6 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Container(
                 width: 200,
+                margin: EdgeInsets.all(12),
                 child: TextField(
                   textAlign: TextAlign.center,
                   decoration: InputDecoration(
@@ -81,20 +75,23 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  RaisedButton(
-                    color: Colors.blue,
-                    child: Text('Get Profile'),
-                    onPressed: () {  },
-                  ),
-                  RaisedButton(
-                    color: Colors.blue,
-                    child: Text('Save Profile'),
-                    onPressed: () {  },
-                  ),
-                ],
+              Container(
+                margin: EdgeInsets.fromLTRB(0,0,0,30),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    RaisedButton(
+                      color: Colors.blue,
+                      child: Text('Get Profile'),
+                      onPressed: () {  },
+                    ),
+                    RaisedButton(
+                      color: Colors.blue,
+                      child: Text('Save Profile'),
+                      onPressed: () {  },
+                    ),
+                  ],
+                ),
               ),
               Text(
                 'resposta',
